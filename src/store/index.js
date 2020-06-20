@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import firebase from 'firebase/app'
-import credentials from '../firebase/credentials'
+import credentials from '../creds/firebase'
 import 'firebase/firestore'
 firebase.initializeApp(credentials.firebaseConfig)
 const db = firebase.firestore()
@@ -32,27 +32,20 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-    pushIngredients(state, ingredient) {
-      if (!state.ingredientsList) {
-        state.ingredientsList = [ingredient]
-      } else {
-        state.ingredientsList.push(ingredient)
-      }
+    addIngredient(state, ingredient) {
+      !state.ingredientsList ? state.ingredientsList = [ingredient] : state.ingredientsList.push(ingredient)
     },
     loadIngredients(state, ingredients) {
       state.ingredientsList = ingredients
     },
     deleteIngredient(state, ingredient) {
-      let index = state.ingredientsList.find(obj => {
-        return obj.name = ingredient.name
-      })
+      let index = state.ingredientsList.indexOf(ingredient)
       state.ingredientsList.splice(index, 1)
     }
   },
   actions: {
-    pushIngredients({ state, commit }, ingredient) {
+    pushIngredients({ state }) {
       let docRef = db.collection('users').doc(state.uid)
-      commit('pushIngredients', ingredient)
       docRef.set({
         ingredientsList: state.ingredientsList
       }, { merge: true })
@@ -67,9 +60,9 @@ export default new Vuex.Store({
       //   })
       //   .catch(error => console.log(error))
     },
-    deleteIngredient({ state, commit, dispatch }, ingredient) {
-      let docRef = db.collection('users').doc(state.uid)
+    deleteIngredient({ commit, dispatch }, ingredient) {
       commit('deleteIngredient', ingredient)
+      dispatch('pushIngredients')
     }
   },
   modules: {

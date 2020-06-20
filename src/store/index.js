@@ -23,7 +23,9 @@ export default new Vuex.Store({
     addIngredient({ state, commit }, ingredient) {
       let docRef = db.collection('users').doc(state.uid)
       commit('addIngredient', ingredient)
-      docRef.set({ ingredientsList: state.ingredientsList }, { merge: true })
+      docRef.set({
+        ingredientsList: state.ingredientsList
+      }, { merge: true })
     }
   },
   modules: {

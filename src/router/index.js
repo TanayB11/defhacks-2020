@@ -13,6 +13,11 @@ Vue.use(VueRouter)
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
+  },
+  {
+    path: '/recipes/:name',
+    props: true,
+    component: () => import(/* webpackChunkName: "about" */ '../views/Recipe.vue')
   }
 ]
 

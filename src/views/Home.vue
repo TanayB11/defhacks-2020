@@ -21,7 +21,7 @@
     <v-container>
       <v-card>
         <v-card-title>
-          asdfjkl;
+          Title
         </v-card-title>
       </v-card>
     </v-container>

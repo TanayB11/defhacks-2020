@@ -12,24 +12,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     uid: 'FJLOKIrktT0oko7n2JTZ', // Temp UID
-    // ingredientsList: []
-    ingredientsList: [ // TODO: Dummy text, delete later
-      {
-        name: 'Butter',
-        amount: '2tbsp',
-        expiry: '06/28/20'
-      },
-      {
-        name: 'Broccoli',
-        amount: '2lb',
-        expiry: '07/04/20'
-      },
-      {
-        name: 'Tofu',
-        amount: '8 cups',
-        expiry: '07/13/20'
-      }
-    ]
+    ingredientsList: [],
+    recipes: []
   },
   mutations: {
     addIngredient(state, ingredient) {
@@ -41,6 +25,9 @@ export default new Vuex.Store({
     deleteIngredient(state, ingredient) {
       let index = state.ingredientsList.indexOf(ingredient)
       state.ingredientsList.splice(index, 1)
+    },
+    updateRecipes(state, recipes) {
+      state.recipes = recipes
     }
   },
   actions: {
@@ -53,12 +40,11 @@ export default new Vuex.Store({
     },
     getIngredients({ state, commit }) {
       let docRef = db.collection('users').doc(state.uid)
-      // TODO: Uncomment (saving db reads)
-      // docRef.get()
-      //   .then(doc => {
-      //     if (doc.exists) commit('loadIngredients', doc.data().ingredientsList)
-      //   })
-      //   .catch(error => console.log(error))
+      docRef.get()
+        .then(doc => {
+          if (doc.exists) commit('loadIngredients', doc.data().ingredientsList)
+        })
+        .catch(error => console.log(error))
     },
     deleteIngredient({ commit, dispatch }, ingredient) {
       commit('deleteIngredient', ingredient)

@@ -14,21 +14,16 @@
 					</v-row>
 					<v-row class="font-weight-light my-1"
 					v-for="(n, i) in $store.state.ingredientsList" :key='i.key'>
-						<v-col class="pa-0">
+						<v-col class="pl-0 py-0 pr-1" contenteditable=true spellcheck="false">
 							{{ $store.state.ingredientsList[i].name }}
 						</v-col>
-						<v-col class="pa-0">
+						<v-col class="pl-0 py-0 pr-1" contenteditable=true spellcheck="false">
 							{{ $store.state.ingredientsList[i].amount }}
 						</v-col>
-						<v-col class="pa-0">
+						<v-col class="pl-0 py-0 pr-1" contenteditable=true spellcheck="false">
 							{{ $store.state.ingredientsList[i].expiry }}
 						</v-col>
 						<v-col class="pa-0" :cols=1>
-							<!-- editing doesn't work -->
-							<v-icon @click='$store.dispatch("editIngredient", $store.state.ingredientsList[i])'
-							color="secondary" class="mb-1 mr-2">
-								mdi-pencil
-							</v-icon>
 							<v-icon @click='$store.dispatch("deleteIngredient", $store.state.ingredientsList[i])'
 							color="error" class="mb-1">
 								mdi-trash-can-outline
@@ -56,7 +51,7 @@ export default {
 	name: 'IngredientsList',
 	methods: {
 		getRecipes() {
-			const BASEURL = 'https://api.spoonacular.com/recipes/findByIngredients'
+			const BASEURL = 'https://api.spoonacular.com/recipes/complexSearch'
 			const NUM_OF_RECIPES = 3
 			let ingredients = ''
 			for (let i = 0; i < this.$store.state.ingredientsList.length; i++) {
@@ -65,7 +60,7 @@ export default {
 			}
 			axios({
 				method: 'get',
-				url: `${BASEURL}?ingredients=${ingredients}&number=${NUM_OF_RECIPES}&ignorePantry=true&apiKey=${API_KEY}`
+				url: `${BASEURL}?ingredients=${ingredients}&number=${NUM_OF_RECIPES}&instructionsRequired=true&ignorePantry=true&addRecipeNutrition=true&apiKey=${API_KEY}`
 			})
 				.then(result => {
 					this.$store.commit('updateRecipes', result.data)

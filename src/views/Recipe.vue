@@ -1,7 +1,7 @@
 <template>
   <v-layout class="py-8 mt-12">
     <v-container class="mt-64">
-      <v-card>
+      <v-card class="px-8 py-4">
         <v-card-title>
           {{ name }}
         </v-card-title>
@@ -14,9 +14,9 @@
                   <v-col class="pa-0">Ingredients</v-col>
                 </v-row>
                 <v-row class="text-body-1 font-weight-light my-1"
-                v-for="(n, i) in recipe.usedIngredients" :key='i.key'>
+                v-for="(n, i) in recipe.nutrition.ingredients" :key='i.key'>
                   <v-col class="pa-0">
-                    {{ recipe.usedIngredients[i].original }}
+                    {{ `${i+1}.  ${recipe.nutrition.ingredients[i].name}` }}
                   </v-col>
                 </v-row>
               </v-col>
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     loadRecipe() {
-      this.recipe = this.$store.state.recipes.find(obj => {
+      this.recipe = this.$store.state.recipes.results.find(obj => {
         return obj.title == this.name
       })
     },
@@ -80,6 +80,7 @@ export default {
     }
   },
   mounted() {
+    console.clear()
     this.loadRecipe()
     if (!this.instructions) this.getInstructions()
   }

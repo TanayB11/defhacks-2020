@@ -6,7 +6,7 @@
 				<NewIngredient/>
 			</v-row>
 			<v-row>
-				<RecipesList/>
+				<RecipeList/>
 			</v-row>
 		</v-container>
 	</v-layout>
@@ -15,12 +15,12 @@
 <script>
 import IngredientsList from '../components/IngredientsList'
 import NewIngredient from '../components/NewIngredient'
-import RecipesList from '../components/RecipeList'
+import RecipeList from '../components/RecipeList'
 export default {
 	components: {
 		IngredientsList,
 		NewIngredient,
-		RecipesList
+		RecipeList
 	},
 	data() {
 		return {

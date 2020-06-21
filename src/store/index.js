@@ -33,6 +33,8 @@ export default new Vuex.Store({
     },
     sortExpiry(state) {
       state.ingredientsList.sort((a, b) => {
+        if (a.expiry == 'n/a') return 1
+        if (b.expiry == 'n/a') return -1
         return moment(a.expiry, "MM/DD/YY").diff(moment(), 'days') - moment(b.expiry, "MM/DD/YY").diff(moment(), 'days')
       })
     }

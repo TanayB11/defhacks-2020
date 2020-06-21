@@ -54,13 +54,12 @@ export default {
 			const BASEURL = 'https://api.spoonacular.com/recipes/complexSearch'
 			const NUM_OF_RECIPES = 3
 			let ingredients = ''
-			for (let i = 0; i < 3; i++) {
+			for (let i = 0; i < Math.min(4, this.$store.state.ingredientsList.length); i++) {
 				if (ingredients) ingredients+=',+'
 				ingredients+=this.$store.state.ingredientsList[i].name
 			}
 			let options = `&number=${NUM_OF_RECIPES}&instructionsRequired=true&ignorePantry=true&addRecipeNutrition=true&sort=max-used-ingredients&ranking=2`
 			ingredients = ingredients.replace(/ /g, '+')
-			console.log(`${BASEURL}?query=${ingredients}${options}&apiKey=${API_KEY}`)
 			axios({
 				method: 'get',
 				url: `${BASEURL}?query=${ingredients}${options}&apiKey=${API_KEY}`

@@ -9,8 +9,8 @@
 					<v-row class="mb-3 text-h6 font-weight-light white--text">
 						<v-col class="pa-0 mx-8 col-2">Name</v-col>
 						<v-col class="pa-0 mx-8">Ingredients</v-col>
+						<v-col class="pa-0 mx-8">Servings</v-col>
 						<v-col class="pa-0 mx-8">Calories</v-col>
-						<v-col class="pa-0 mx-8">Protein</v-col>
 						<v-col class="pa-0 mx-8">Rating</v-col>
 					</v-row>
 					<div v-for="(n, i) in $store.state.recipes.results" :key='i.key'> 
@@ -20,14 +20,14 @@
 									<router-link :to='{ path: `/recipe/${$store.state.recipes.results[i].title}` }' class="text-decoration-none blue--text">{{ $store.state.recipes.results[i].title.trim() }}</router-link>
 								</v-col>
 								<v-col class="pa-0 mx-8">
-									<p v-if="$store.state.recipes.results[i].nutrition.ingredients.length == 1">1 ingredient</p>
-									<p v-else>{{ $store.state.recipes.results[i].nutrition.ingredients.length }} ingredients</p>
+									<p>{{ $store.state.recipes.results[i].nutrition.ingredients.length }} ingredients</p>
 								</v-col>
 								<v-col class="pa-0 mx-8">
-									<p>{{ $store.state.recipes.results[i].nutrition.nutrients[0].amount }} cal</p>
+									<p v-if="$store.state.recipes.results[i].servings == 1">1 serving</p>
+									<p v-else>{{ $store.state.recipes.results[i].servings }} servings</p>
 								</v-col>
 								<v-col class="pa-0 mx-8">
-									<p>{{ $store.state.recipes.results[i].nutrition.nutrients[9].amount }}g</p>
+									<p>{{ Math.round($store.state.recipes.results[i].nutrition.nutrients[0].amount) }} cal</p>
 								</v-col>
 								<v-col class="pa-0 mx-8">
 									<p v-if="$store.state.recipes.results[i].aggregateLikes == 1">1 like</p>

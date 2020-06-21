@@ -6,17 +6,40 @@
           {{ name }}
         </v-card-title>
         <v-card-text>
-          <img :src="recipe.image" width="200">
+          
           <v-container grid-list-xs class="text-body-1 justify-between my-1">
             <v-row>
-              <v-col>
+              <v-col class="col-4 font-weight-light pa-0">
+                <div class="mb-1">
+                  {{ recipe.nutrition.ingredients.length }} ingredients
+                </div>
+                <div class="mb-1">
+                  {{ Math.round(recipe.nutrition.nutrients[0].amount) }} calories
+                </div>
+                <div class="mb-1">
+                  {{ recipe.cookingMinutes }} min cook time
+                </div>
+                <div class="mb-1" v-if="recipe.servings == 1"> 1 serving </div>
+                <div class="mb-1" v-else>
+                  {{ recipe.servings }} servings
+                </div>
+                <div class="mb-1">
+                  {{ recipe.aggregateLikes }} likes
+                </div>
+              </v-col>
+              <v-col class="py-0 d-flex justify-center  ">
+                <img :src="recipe.image" height="150">
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="col-4">
                 <v-row class="mb-3 text-h4 font-weight-light white--text">
                   <v-col class="pa-0">Ingredients</v-col>
                 </v-row>
                 <v-row class="text-body-1 font-weight-light my-1"
                 v-for="(n, i) in recipe.nutrition.ingredients" :key='i.key'>
                   <v-col class="pa-0">
-                    {{ `${i+1}.  ${recipe.nutrition.ingredients[i].name}` }}
+                    {{ `${i+1}.  ${recipe.nutrition.ingredients[i].amount} ${recipe.nutrition.ingredients[i].unit} ${recipe.nutrition.ingredients[i].name}` }}
                   </v-col>
                 </v-row>
               </v-col>
@@ -34,7 +57,7 @@
                 </div>
                 <div v-else class="ml-5 text-body-1 font-weight-light my-1">
                   <p class="pa-0 my-1">
-                    Sorry! No recipe instructions were found.
+                    Recipe instructions incoming!
                   </p>
                 </div>
               </v-col>

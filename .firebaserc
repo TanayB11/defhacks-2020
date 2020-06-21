@@ -1,5 +1,16 @@
 {
   "projects": {
     "default": "defhacks-2020"
+  },
+  {
+    "hosting": {
+      "public": "dist",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
   }
 }

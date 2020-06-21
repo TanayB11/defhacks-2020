@@ -14,7 +14,7 @@ To start, input ingredients you have in the kitchen and their expiry dates. With
 All of this is wrapped up in a user-friendly website which incorporates Material design and is streamlined to bring a clear recipe.
 
 ## Live Demo
-Click [here](https://defhacks-2020.web.app/) to preview the app.
+Click [here](https://defhacks-2020.web.app/) to preview the app. Or visit [saucer.tech](saucer.tech).
 
 ## Development
 ```bash

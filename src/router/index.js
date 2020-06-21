@@ -12,12 +12,20 @@ Vue.use(VueRouter)
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
+    component: () => import('../views/Dashboard.vue')
   },
   {
-    path: '/recipes/:name',
+    path: '/recipe/:name',
     props: true,
-    component: () => import(/* webpackChunkName: "about" */ '../views/Recipe.vue')
+    component: () => import('../views/Recipe.vue')
+  },
+  {
+    path: '*',
+    component: () => import('../views/NotFound.vue')
+  },
+  {
+    path: '*/*',
+    component: () => import('../views/NotFound.vue')
   }
 ]
 

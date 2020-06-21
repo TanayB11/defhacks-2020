@@ -13,7 +13,7 @@
 					</div>
 					<v-card-actions class="mx-0 px-0 my-2">
 						<v-btn type='submit' color='info'>
-							Submit
+							Add
 						</v-btn>
 						<v-spacer/>
 						<v-btn color='secondary' fab small>
@@ -44,7 +44,7 @@ export default {
 	computed: {
 		amountRules() {
 			const rules = []
-			rules.push(v => !isNaN(v) || "Input a valid amount") 
+			rules.push(v => (/[0-9]+( |[A-z])*/g.test(v)) || "Input a valid amount") 
 			return rules
 		}
 	},

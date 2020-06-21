@@ -7,6 +7,8 @@ import 'firebase/firestore'
 firebase.initializeApp(credentials.firebaseConfig)
 const db = firebase.firestore()
 
+import moment from 'moment'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -28,6 +30,11 @@ export default new Vuex.Store({
     },
     updateRecipes(state, recipes) {
       state.recipes = recipes
+    },
+    sortExpiry(state) {
+      state.ingredientsList.sort((a, b) => {
+        return moment(a.expiry, "MM/DD/YY").diff(moment(), 'days') - moment(b.expiry, "MM/DD/YY").diff(moment(), 'days')
+      })
     }
   },
   actions: {
@@ -36,18 +43,29 @@ export default new Vuex.Store({
       docRef.set({
         ingredientsList: state.ingredientsList
       }, { merge: true })
+        .then(() => {
+          new Promise((resolve) => {
+            commit('sortExpiry')
+            resolve()
+          })
+        })
         .catch(error => console.log(error))
     },
     getIngredients({ state, commit }) {
       let docRef = db.collection('users').doc(state.uid)
       docRef.get()
         .then(doc => {
-          if (doc.exists) commit('loadIngredients', doc.data().ingredientsList)
+          new Promise((resolve) => {
+            if (doc.exists) commit('loadIngredients', doc.data().ingredientsList)
+            commit('sortExpiry')
+            resolve()
+          })
         })
         .catch(error => console.log(error))
     },
     deleteIngredient({ commit, dispatch }, ingredient) {
       commit('deleteIngredient', ingredient)
+      commit('sortExpiry')
       dispatch('pushIngredients')
     }
   },

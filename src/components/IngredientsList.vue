@@ -65,9 +65,9 @@ export default {
 				.then(result => {
 					this.$store.commit('updateRecipes', result.data)
 				})
-		}
+		},
 	},
-	mounted() {
+	created() {
 		this.$store.dispatch('getIngredients')
 	}
 }

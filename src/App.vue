@@ -46,7 +46,7 @@ export default {
 			miniVariant: false,
 			right: true,
 			rightDrawer: false,
-			title: "recipe-finder"
+			title: "Saucer"
 		}
   },
   created() {

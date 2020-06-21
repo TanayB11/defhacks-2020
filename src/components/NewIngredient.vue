@@ -46,6 +46,7 @@ export default {
 	methods: {
 		addIngredient() {
 			this.$store.commit("addIngredient", this.ingredient);
+			this.$store.commit("sortExpiry");
 			this.$store.dispatch("pushIngredients", this.ingredient).then(
 				(this.ingredient = {
 					name: "",

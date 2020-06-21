@@ -58,6 +58,7 @@ export default {
 				if (!ingredients) ingredients+=this.$store.state.ingredientsList[i].name
 				else ingredients+=`,+${this.$store.state.ingredientsList[i].name}`
 			}
+			console.log(`INGREDIENT LIST: ${ingredients}`)
 			axios({
 				method: 'get',
 				url: `${BASEURL}?ingredients=${ingredients}&number=${NUM_OF_RECIPES}&instructionsRequired=true&ignorePantry=true&addRecipeNutrition=true&apiKey=${API_KEY}`

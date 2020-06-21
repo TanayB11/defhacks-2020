@@ -45,7 +45,7 @@ export default new Vuex.Store({
       }, { merge: true })
         .then(() => {
           new Promise((resolve) => {
-            commit('sortExpiry')
+            this.commit('sortExpiry')
             resolve()
           })
         })
@@ -56,17 +56,17 @@ export default new Vuex.Store({
       docRef.get()
         .then(doc => {
           new Promise((resolve) => {
-            if (doc.exists) commit('loadIngredients', doc.data().ingredientsList)
-            commit('sortExpiry')
+            if (doc.exists) this.commit('loadIngredients', doc.data().ingredientsList)
+            this.commit('sortExpiry')
             resolve()
           })
         })
         .catch(error => console.log(error))
     },
     deleteIngredient({ commit, dispatch }, ingredient) {
-      commit('deleteIngredient', ingredient)
-      commit('sortExpiry')
-      dispatch('pushIngredients')
+      this.commit('deleteIngredient', ingredient)
+      this.commit('sortExpiry')
+      this.dispatch('pushIngredients')
     }
   },
   modules: {

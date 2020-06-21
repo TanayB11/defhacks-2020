@@ -6,14 +6,14 @@
           {{ name }}
         </v-card-title>
         <v-card-text>
-          <!-- <img :src="recipe.image" width="200"> -->
+          <img :src="recipe.image" width="200">
           <v-container grid-list-xs class="text-body-1 justify-between my-1">
             <v-row>
               <v-col>
                 <v-row class="mb-3 text-h4 font-weight-light white--text">
                   <v-col class="pa-0">Ingredients</v-col>
                 </v-row>
-                <v-row class="text-h6 font-weight-light my-1"
+                <v-row class="text-body-1 font-weight-light my-1"
                 v-for="(n, i) in recipe.usedIngredients" :key='i.key'>
                   <v-col class="pa-0">
                     {{ recipe.usedIngredients[i].original }}
@@ -24,12 +24,19 @@
                 <v-row class="ml-5 mb-3 text-h4 font-weight-light white--text">
                   <v-col class="pa-0">Steps</v-col>
                 </v-row>
-                <v-row class="ml-5 text-body-1 font-weight-light my-1"
-                v-for="(n, i) in instructions.steps" :key='i.key'>
-                  <v-col class="pa-0 my-1">
-                    {{ `${i+1}. ${instructions.steps[i].step}` }}
-                  </v-col>
-                </v-row>
+                <div v-if="instructions">
+                  <v-row class="ml-5 text-body-1 font-weight-light my-1"
+                  v-for="(n, i) in instructions.steps" :key='i.key'>
+                    <v-col class="pa-0 my-1">
+                      {{ `${i+1}. ${instructions.steps[i].step}` }}
+                    </v-col>
+                  </v-row>
+                </div>
+                <div v-else class="ml-5 text-body-1 font-weight-light my-1">
+                  <p class="pa-0 my-1">
+                    Sorry! No recipe instructions were found.
+                  </p>
+                </div>
               </v-col>
             </v-row>
           </v-container>
@@ -61,8 +68,8 @@ export default {
       })
     },
     getInstructions() {
-      // const BASEURL = `https://api.spoonacular.com/recipes/${this.recipe.id}/analyzedInstructions`
-      const BASEURL = `https://api.spoonacular.com/recipes/4632/analyzedInstructions`
+      const BASEURL = `https://api.spoonacular.com/recipes/${this.recipe.id}/analyzedInstructions`
+      // const BASEURL = `https://api.spoonacular.com/recipes/4632/analyzedInstructions`
 			axios({
 				method: 'get',
 				url: `${BASEURL}?apiKey=${API_KEY}`

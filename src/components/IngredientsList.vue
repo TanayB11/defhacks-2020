@@ -54,18 +54,20 @@ export default {
 			const BASEURL = 'https://api.spoonacular.com/recipes/complexSearch'
 			const NUM_OF_RECIPES = 3
 			let ingredients = ''
-			for (let i = 0; i < this.$store.state.ingredientsList.length; i++) {
-				if (!ingredients) ingredients+=this.$store.state.ingredientsList[i].name
-				else ingredients+=`,+${this.$store.state.ingredientsList[i].name}`
+			for (let i = 0; i < 3; i++) {
+				if (ingredients) ingredients+=',+'
+				ingredients+=this.$store.state.ingredientsList[i].name
 			}
-			console.log(`INGREDIENT LIST: ${ingredients}`)
+			let options = `&number=${NUM_OF_RECIPES}&instructionsRequired=true&ignorePantry=true&addRecipeNutrition=true&sort=max-used-ingredients&ranking=2`
+			ingredients = ingredients.replace(/ /g, '+')
+			console.log(`${BASEURL}?query=${ingredients}${options}&apiKey=${API_KEY}`)
 			axios({
 				method: 'get',
-				url: `${BASEURL}?ingredients=${ingredients}&number=${NUM_OF_RECIPES}&instructionsRequired=true&ignorePantry=true&addRecipeNutrition=true&apiKey=${API_KEY}`
+				url: `${BASEURL}?query=${ingredients}${options}&apiKey=${API_KEY}`
 			})
-				.then(result => {
-					this.$store.commit('updateRecipes', result.data)
-				})
+			.then(result => {
+				this.$store.commit('updateRecipes', result.data)
+			})
 		},
 	},
 	created() {

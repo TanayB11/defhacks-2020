@@ -15,7 +15,7 @@
 						<v-btn v-on:click="speechRecognition()" id="button" value = 0 color="secondary" class="fab small">
 							<v-icon>mdi-microphone</v-icon>
 						</v-btn>
-						<div id="result"></div>
+						<div id="result" style="display:none;"></div>
 					</v-card-actions>
 				</v-form>
 			</v-card-text>
@@ -54,7 +54,7 @@ export default {
 					expiry: ""
 				})
 			);
-		}, // rules
+		}, 
 		speechRecognition() {
 			const button = document.getElementById("button");
 			let listening;
@@ -67,6 +67,7 @@ export default {
 				button.value = 0;
 				listening = false;
 			}
+
 
 			const result = document.getElementById("result");
 			
@@ -94,21 +95,30 @@ export default {
 				const recognition = new SpeechRecognition();
 				recognition.continuous = true;
 				recognition.interimResults = true;
-				recognition.addEventListener("result", onResult);
+				recognition.addEventListener("result", (event) => {
+					result.innerHTML = "";
+
+					for (res of event.results) {
+						const text = document.createTextNode(res[0].transcript);
+						const p = document.createElement("p");
+						if (res.isFinal) {
+							p.classList.add("final");
+						}
+
+						p.appendChild(text);
+						result.appendChild(p);
+					}
+				});
 
 				if(listening){
-					start();
+					recognition.start();
+					button.textContent = "Stop";
 				}
 
 				else{
-					stop();
-				}
-
-				const stop = () => {
-					
 
 					recognition.stop();
-					button.textContent = "Start listening";
+					button.textContent = "Start";
 
 					finalStr = "";
 					for (let i = 0; i < result.children.length; i++) {
@@ -137,35 +147,13 @@ export default {
 							day = str[j + 2].substring(0, str[j + 2].length - 2);
 							if (day.length == 1) day = "0" + day;
 							year = str[j + 3];
-							console.log("Date: " + formatMonth + "/" + day + "/" + year);
+							//console.log("Date: " + formatMonth + "/" + day + "/" + year);
 						}
 					}
-				};
-
-				const start = () => {
-				
-					recognition.start();
-					button.textContent = "Stop listening";
-				};
-
-				const onResult = event => {
-					result.innerHTML = "";
-
-					for (res of event.results) {
-						const text = document.createTextNode(res[0].transcript);
-						const p = document.createElement("p");
-						if (res.isFinal) {
-							p.classList.add("final");
-						}
-
-						p.appendChild(text);
-						result.appendChild(p);
-					}
-				};
-				
-				
+				}
+	
 			} 
-			else { }
+			
 		}
 	}
 };

@@ -13,17 +13,15 @@
                 <div class="mb-1">
                   {{ recipe.nutrition.ingredients.length }} ingredients
                 </div>
-                <div class="mb-1">
-                  {{ Math.round(recipe.nutrition.nutrients[0].amount) }} calories
-                </div>
-                <div class="mb-1">
-                  {{ recipe.cookingMinutes }} min cook time
-                </div>
                 <div class="mb-1" v-if="recipe.servings == 1"> 1 serving </div>
                 <div class="mb-1" v-else>
                   {{ recipe.servings }} servings
                 </div>
                 <div class="mb-1">
+                  {{ Math.round(recipe.nutrition.nutrients[0].amount) }} cal
+                </div>
+                <div class="mb-1" v-if="recipe.aggregateLikes == 1"> 1 like </div>
+                <div class="mb-1" v-else>
                   {{ recipe.aggregateLikes }} likes
                 </div>
               </v-col>

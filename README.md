@@ -1,6 +1,7 @@
 # Saucer
 ### Tanay Biradar, Riley Kong, Siddharth Nath, Ritvik Pandey
 ### Def Hacks 2020
+#### Winner of the Script Foundation's Innovation Hack of the Year Award
 
 ---
 Every year, "roughly 1.3 billion tons of food, worth nearly $1 trillion, spoils or is thrown away" [(Wernick, PRI)](https://www.pri.org/stories/2020-05-28/food-waste-increases-during-pandemic-compounding-existing-problem). At the same time, "11.1 percent (14.3 million) households experience food shortages at some time during a year" [(USDA)](https://www.ers.usda.gov/topics/food-nutrition-assistance/food-security-in-the-us/key-statistics-graphics.aspx).

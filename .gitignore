@@ -5,6 +5,9 @@ creds/
 
 *.cache
 
+# awards
+award
+
 # local env files
 .env.local
 .env.*.local
